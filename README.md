@@ -27,6 +27,7 @@
 # Návrh databáze
 
 Byla implementována jednoduchá databáze s využitím schématu hvězda, v rámci níž byla vytvořena tabulka rezervací ('reservations') sloužící jako hlavní tabulka
+
 ![Návrh databáze Vločka](obrazky/LibraryVlocka.png "Vlocka")
 
 ## Engine
