@@ -162,24 +162,48 @@ Metabase je open-source nástroj pro řízení dat, který nabízí uživatelům
 
 ## Ukázka počtu rezervací na žánr
 
+```
+select count(genres.name) as "Počet", genres.name as "Žánr" from reservations inner join books on books.id = reservations.book_id inner join books_has_genres on books_has_genres.book_id = books.id inner join genres on genres.id = books_has_genres.genre_id group by genres.name order by count(genres.name) desc
+```
+
 ![Ukázka počtu rezervací na žánr](obrazky/Zanr_pocet.png "Graf")
 
 ## Ukázka počtu rezervací na měsíc
+
+```
+select count(pickup_dates.pickup) as "Počet", month(pickup_dates.pickup) as "Měsíc" from reservations inner join pickup_dates on pickup_dates.id = reservations.pickup_dates_id group by month(pickup_dates.pickup) order by count(pickup_dates.pickup)
+```
 
 ![Ukázka počtu rezervací na měsíc](obrazky/Rezervace_mesic.png "Graf")
 
 ## Ukázka počtu rezervací na den
 
+```
+select count(pickup_dates.pickup) as "Počet", day(pickup_dates.pickup) as "Den" from reservations inner join pickup_dates on pickup_dates.id = reservations.pickup_dates_id group by day(pickup_dates.pickup) order by day(pickup_dates.pickup)
+```
+
 ![Ukázka počtu rezervací na den](obrazky/Rezervace_den.png "Graf")
 
 ## Ukázka délky půjčení knížky
+
+```
+select count(duration_of_borow) as "Počet", concat(duration_of_borow, " dní") as "Délka půjčení" from reservations group by reservations.duration_of_borow order by count(duration_of_borow) desc
+```
 
 ![Ukázka délky půjčení knížky](obrazky/procenta_delka__puceni.png "Graf")
 
 ## Ukázka zastoupení jazyků v knížkách
 
+```
+select count(languages.id) as "count", languages.language from reservations inner join books on books.id = reservations.book_id inner join languages on languages.id = books.languages_id group by languages.language order by count(languages.id) desc
+```
+
 ![Ukázka zastoupení jazyků v knížkách](obrazky/procenta_jazyku.png "Graf")
 
 ## Ukázka kdy se lidi registrují
+
+```
+select month(users.created) as "Měsíc", count(month(users.created)) as "Počet" from reservations inner join users on reservations.user_id = users.id group by month(users.created) order by month(users.created)
+```
 
 ![Ukázka kdy se lidi registrují](obrazky/Vytvorene_ucty_mesic.png "Graf")
